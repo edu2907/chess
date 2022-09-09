@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 # The Tower Piece in chess
-class Tower
-  def initialize(color)
+class Tower < Piece
+  def initialize(color:, board:, pos:)
+    super(color, board, pos)
     @symbol = symbols(color)
+    @notation_ltr = 'R'
   end
 
   def symbols(color)

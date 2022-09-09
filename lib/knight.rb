@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 # The Knight Piece in chess
-class Knight
-  def initialize(color)
+class Knight < Piece
+  def initialize(color:, board:, pos:)
+    super(color, board, pos)
     @symbol = symbols(color)
+    @notation_ltr = 'N'
   end
 
   def symbols(color)

@@ -16,4 +16,23 @@ class Game
   def create_players(init_players_data)
     init_players_data.map { |init_player_data| Player.new(board, init_player_data) }
   end
+
+  def run
+    loop do
+      execute_round
+
+      return print_win_message if checkmate?
+      return print_draw_message if draw?
+
+      @current_player = @players.rotate!.first
+    end
+  end
+
+  def execute_round
+    system 'clear'
+    puts " -> #{@current_player.name}'s Turn"
+    @board.print_board
+    @players.each { |player| puts "#{player.name}: #{player.mark_piece}" }
+    @current_player.move_piece
+  end
 end

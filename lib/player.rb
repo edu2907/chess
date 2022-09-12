@@ -56,7 +56,7 @@ class Player
 
   def valid_piece?(piece_coord)
     piece = @board.at(piece_coord)
-    if !piece_coord.match?(/^[A-H][1-8]$/)
+    if !piece_coord.match?(/^[a-h][1-8]$/)
       puts 'Invalid input!'
     elsif piece.nil? || @color != piece.color
       puts 'Invalid piece!'
@@ -68,7 +68,7 @@ class Player
   def valid_target?(piece, target)
     return target if target == 'back'
 
-    if !target.match?(/^[A-H][1-8]$/)
+    if !target.match?(/^[a-h][1-8]$/)
       puts 'Invalid input!'
     elsif !piece.can_move_to?(target)
       puts 'Invalid target!'
@@ -80,7 +80,7 @@ class Player
   private
 
   def input_start_coord
-    puts 'Insert the coordinate of your selected piece: (Ex: A7)'
+    puts 'Insert the coordinate of your selected piece: (Ex: a7)'
     gets.chomp
   end
 
@@ -97,33 +97,33 @@ class Player
   end
 
   def place_towers(main_row)
-    pos1 = "A#{main_row}"
-    pos2 = "H#{main_row}"
+    pos1 = "a#{main_row}"
+    pos2 = "h#{main_row}"
     @board.place_at(Tower.new(color: @color, board: @board, pos: pos1), pos1)
     @board.place_at(Tower.new(color: @color, board: @board, pos: pos2), pos2)
   end
 
   def place_knights(main_row)
-    pos1 = "B#{main_row}"
-    pos2 = "G#{main_row}"
+    pos1 = "b#{main_row}"
+    pos2 = "g#{main_row}"
     @board.place_at(Knight.new(color: @color, board: @board, pos: pos1), pos1)
     @board.place_at(Knight.new(color: @color, board: @board, pos: pos2), pos2)
   end
 
   def place_bisps(main_row)
-    pos1 = "C#{main_row}"
-    pos2 = "F#{main_row}"
+    pos1 = "c#{main_row}"
+    pos2 = "f#{main_row}"
     @board.place_at(Bisp.new(color: @color, board: @board, pos: pos1), pos1)
     @board.place_at(Bisp.new(color: @color, board: @board, pos: pos2), pos2)
   end
 
   def place_queen(main_row)
-    pos = "D#{main_row}"
+    pos = "d#{main_row}"
     @board.place_at(Queen.new(color: @color, board: @board, pos: pos), pos)
   end
 
   def place_king(main_row)
-    pos = "E#{main_row}"
+    pos = "e#{main_row}"
     @board.place_at(King.new(color: @color, board: @board, pos: pos), pos)
   end
 end

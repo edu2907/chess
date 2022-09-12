@@ -8,12 +8,12 @@ class Board
 
   def initialize
     @arr = Array.new(8) { Array.new(8) }
-    @columns = %w[A B C D E F G H]
+    @columns = %w[a b c d e f g h]
   end
 
   # Accepts values as a coordinate ("A2") or indexes string
   def at(pos)
-    is_coordinate = lambda { |str| str.match?(/^[A-H][1-8]$/) }
+    is_coordinate = lambda { |str| str.match?(/^[a-h][1-8]$/) }
     is_indexes = lambda { |str| str.match?(/^[0-7][0-7]$/) }
 
     case pos

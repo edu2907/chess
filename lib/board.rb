@@ -11,24 +11,34 @@ class Board
     @columns = %w[A B C D E F G H]
   end
 
-  def at(coord)
-    return unless coord.match?(/^[A-H][1-8]$/)
+  # Accepts values as a coordinate ("A2") or indexes string
+  def at(pos)
+    is_coordinate = lambda { |str| str.match?(/^[A-H][1-8]$/) }
+    is_indexes = lambda { |str| str.match?(/^[0-7][0-7]$/) }
 
-    col = convert_to_col(coord[0])
-    row = coord[1].to_i - 1
+    case pos
+    when is_coordinate
+      row = convert_to_row_index(pos[1])
+      col = convert_to_col_index(pos[0])
+    when is_indexes
+      row = pos[1].to_i
+      col = pos[0].to_i
+    else return
+    end
+
     arr[row][col]
   end
 
   def remove_at(coord)
-    col = convert_to_col(coord[0])
-    row = coord[1].to_i - 1
+    col = convert_to_col_index(coord[0])
+    row = convert_to_row_index(coord[1])
     arr[row][col].pos = nil
     arr[row][col] = nil
   end
 
   def place_at(piece, coord)
-    col = convert_to_col(coord[0])
-    row = coord[1].to_i - 1
+    col = convert_to_col_index(coord[0])
+    row = convert_to_row_index(coord[1])
     piece.pos = coord
     arr[row][col] = piece
   end
@@ -38,6 +48,21 @@ class Board
     board_str += format_board
     board_str += "    #{columns.join('  ')}"
     puts board_str
+  end
+
+  def convert_to_indexes(coord)
+    indexes = []
+    indexes << convert_to_col_index(coord[0])
+    indexes << convert_to_row_index(coord[1])
+    indexes
+  end
+
+  def convert_to_col_index(col)
+    columns.index(col)
+  end
+
+  def convert_to_row_index(row)
+    row.to_i - 1
   end
 
   private
@@ -57,9 +82,5 @@ class Board
 
   def pieces(piece)
     piece.nil? ? ' ' : piece
-  end
-
-  def convert_to_col(letter)
-    columns.index(letter)
   end
 end

@@ -51,7 +51,7 @@ class Player
 
     @board.remove_at(initial_pos)
     @board.place_at(piece, target)
-    "#{piece.notation_ltr + initial_pos} #{piece.notation_ltr + target}"
+    piece.notation_ltr + target
   end
 
   def valid_piece?(piece_coord)

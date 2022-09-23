@@ -62,19 +62,19 @@ class Board
   end
 
   def convert_to_row_index(row)
-    row.to_i - 1
+    (row.to_i - 8).abs
   end
 
   private
 
   def format_board(string = "\n", colors = %i[black grey])
     arr.each_with_index do |row_arr, row_n|
-      string += " #{row_n + 1} "
+      string += " #{(row_n - 8).abs} "
       row_arr.each do |piece|
         string += " #{pieces(piece)} ".colorize(background: colors.first)
         colors.rotate!
       end
-      string += " #{row_n + 1}\n"
+      string += " #{(row_n - 8).abs}\n"
       colors.rotate!
     end
     string

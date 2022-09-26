@@ -1,12 +1,30 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require_relative 'save_utils'
 require_relative 'game'
 
-# This is a 'model' player struct which contains initial data for creation of the actual players
-InitPlayerData = Struct.new(:color, :main_row, :pawn_row)
-white_player = InitPlayerData.new 'white', 1, 2
-black_player = InitPlayerData.new 'black', 8, 7
-init_players_data = [white_player, black_player]
+ascii_display = <<HEREDOC
+    /$$$$$$  /$$
+   /$$__  $$| $$
+  | $$  \\__/| $$$$$$$   /$$$$$$   /$$$$$$$ /$$$$$$$
+  | $$      | $$__  $$ /$$__  $$ /$$_____//$$_____/
+  | $$      | $$  \\ $$| $$$$$$$$|  $$$$$$|  $$$$$$
+  | $$    $$| $$  | $$| $$_____/ \\____  $$\\____  $$
+  |  $$$$$$/| $$  | $$|  $$$$$$$ /$$$$$$$//$$$$$$$/
+   \\______/ |__/  |__/ \_______/|_______/|_______/
 
-Game.new(init_players_data).run
+HEREDOC
+
+puts ascii_display
+
+if SaveUtils.save_file?
+  $save_number = SaveUtils.pick_save_file
+  if $save_number < SaveUtils.saves.size
+    SaveUtils.load_game
+  else
+    SaveUtils.new_game
+  end
+else
+  SaveUtils.new_game
+end

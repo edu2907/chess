@@ -7,27 +7,18 @@ require_relative 'board'
 # Responsible for the logic of the Chess
 class Game
   include NotationUtils
+  include SaveUtils
   attr_reader :board
 
-  def initialize(init_players_data)
-    @board = Board.new
-    @players = create_players(init_players_data)
+  def initialize(players_data, board_matrix)
+    @board = Board.new(board_matrix)
+    @players = create_players(players_data)
     @current_player = @players[0]
-    @save_number = create_save_files
+    create_save_files
   end
 
-  def create_players(init_players_data)
-    init_players_data.map { |init_player_data| Player.new(board, init_player_data) }
-  end
-
-  def create_save_files
-    Dir.mkdir('saves/') unless Dir.exist?('saves/')
-    save_number = Dir.glob('saves/*').size
-    save_dir = "saves/save#{save_number}/"
-    Dir.mkdir(save_dir)
-    FileUtils.touch("#{save_dir}move_record.txt")
-    FileUtils.touch("#{save_dir}game_data.yaml")
-    save_number
+  def create_players(players_data)
+    players_data.map { |player_data| Player.new(board: board, color: player_data[:color], name: player_data[:name]) }
   end
 
   def run
@@ -39,6 +30,7 @@ class Game
       return print_draw_message if draw?
 
       next_player
+      save_game
     end
   end
 

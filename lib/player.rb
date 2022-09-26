@@ -12,12 +12,11 @@ require_relative 'king'
 class Player
   attr_reader :name, :mark_piece
 
-  def initialize(board, init_player_data)
+  def initialize(board:, color:, name:)
     @board = board
-    @color = init_player_data.color
-    @name = create_name
+    @color = color
+    @name = name || create_name
     @mark_piece = mark_pieces
-    place_pieces(init_player_data.main_row, init_player_data.pawn_row)
   end
 
   def create_name
@@ -34,15 +33,6 @@ class Player
     end
   end
 
-  def place_pieces(main_row, pawn_row)
-    place_pawns(pawn_row)
-    place_towers(main_row)
-    place_knights(main_row)
-    place_bisps(main_row)
-    place_queen(main_row)
-    place_king(main_row)
-  end
-
   def move_piece
     piece = valid_piece?(input_start_coord) until piece
     initial_pos = piece.pos
@@ -51,7 +41,7 @@ class Player
 
     @board.remove_at(initial_pos)
     @board.place_at(piece, target)
-    piece.notation_ltr + target
+    move_notation(piece, target)
   end
 
   def valid_piece?(piece_coord)
@@ -77,6 +67,17 @@ class Player
     end
   end
 
+  def move_notation(piece, move)
+    piece.notation_ltr + move
+  end
+
+  def to_player_data
+    {
+      color: @color,
+      name: name
+    }
+  end
+
   private
 
   def input_start_coord
@@ -87,43 +88,5 @@ class Player
   def input_target
     puts 'Insert the coordinate of your target: (or insert "back" to return)'
     gets.chomp
-  end
-
-  def place_pawns(pawn_row)
-    @board.columns.each do |col|
-      coord = "#{col}#{pawn_row}"
-      @board.place_at(Pawn.new(color: @color, board: @board, pos: coord), coord)
-    end
-  end
-
-  def place_towers(main_row)
-    pos1 = "a#{main_row}"
-    pos2 = "h#{main_row}"
-    @board.place_at(Tower.new(color: @color, board: @board, pos: pos1), pos1)
-    @board.place_at(Tower.new(color: @color, board: @board, pos: pos2), pos2)
-  end
-
-  def place_knights(main_row)
-    pos1 = "b#{main_row}"
-    pos2 = "g#{main_row}"
-    @board.place_at(Knight.new(color: @color, board: @board, pos: pos1), pos1)
-    @board.place_at(Knight.new(color: @color, board: @board, pos: pos2), pos2)
-  end
-
-  def place_bisps(main_row)
-    pos1 = "c#{main_row}"
-    pos2 = "f#{main_row}"
-    @board.place_at(Bisp.new(color: @color, board: @board, pos: pos1), pos1)
-    @board.place_at(Bisp.new(color: @color, board: @board, pos: pos2), pos2)
-  end
-
-  def place_queen(main_row)
-    pos = "d#{main_row}"
-    @board.place_at(Queen.new(color: @color, board: @board, pos: pos), pos)
-  end
-
-  def place_king(main_row)
-    pos = "e#{main_row}"
-    @board.place_at(King.new(color: @color, board: @board, pos: pos), pos)
   end
 end

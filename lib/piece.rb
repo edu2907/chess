@@ -19,6 +19,10 @@ class Piece
     @symbol
   end
 
+  def to_piece_data
+    "#{notation_ltr}-#{color}-#{pos}"
+  end
+
   def enemy?(enemy_pos)
     enemy_piece = @board.at(enemy_pos)
     !enemy_piece.nil? && enemy_piece.color != color

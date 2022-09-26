@@ -3,7 +3,7 @@
 # Manipulate the chess notation file
 module NotationUtils
   def record_movement(move)
-    filename = "saves/save#{@save_number}/move_record.txt"
+    filename = "saves/save#{$save_number}/move_record.txt"
     record_file = File.open(filename, 'r+')
     last_round = read_last_round(record_file)
     if new_round?(last_round)

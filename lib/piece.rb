@@ -1,10 +1,13 @@
-class Piece
-  attr_accessor :pos, :notation_ltr
-  attr_reader :color
+# frozen_string_literal: true
 
-  def initialize(color, board, pos)
-    @color = color
+# Group of attributes and behaviors shared between chess pieces. Should not be instatiated.
+class Piece
+  attr_accessor :pos
+  attr_reader :color, :notation_ltr
+
+  def initialize(board, color, pos)
     @board = board
+    @color = color
     @pos = pos
   end
 
@@ -19,8 +22,12 @@ class Piece
     @symbol
   end
 
-  def to_piece_data
-    "#{notation_ltr}-#{color}-#{pos}"
+  def to_h
+    {
+      piece_ltr: notation_ltr,
+      piece_color: color,
+      piece_pos: pos
+    }
   end
 
   def enemy?(enemy_pos)

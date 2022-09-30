@@ -2,10 +2,10 @@
 
 # The Pawn Piece in chess
 class Pawn < Piece
-  def initialize(color:, board:, pos:)
-    super(color, board, pos)
-    @initial_pos = pos
-    @symbol = symbols(color)
+  def initialize(board, **piece_data)
+    super(board, piece_data[:color], piece_data[:pos])
+    @initial_pos = piece_data[:initial_pos]
+    @symbol = symbols
     @notation_ltr = ''
   end
 
@@ -20,9 +20,13 @@ class Pawn < Piece
     moves.compact
   end
 
+  def to_h
+    super.merge({ initial_pos: @initial_pos })
+  end
+
   private
 
-  def symbols(color)
+  def symbols
     if color == 'white'
       '♙'
     else

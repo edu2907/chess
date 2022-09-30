@@ -2,13 +2,13 @@
 
 # The Queen Piece in chess
 class Queen < Piece
-  def initialize(color:, board:, pos:)
-    super(color, board, pos)
-    @symbol = symbols(color)
+  def initialize(board, **piece_data)
+    super(board, piece_data[:color], piece_data[:pos])
+    @symbol = symbols
     @notation_ltr = 'Q'
   end
 
-  def symbols(color)
+  def symbols
     if color == 'white'
       '♕'
     else

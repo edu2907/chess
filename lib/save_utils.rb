@@ -12,7 +12,7 @@ module SaveUtils
   end
 
   def save_game
-    game_data_hash = create_game_data
+    game_data_hash = to_h
     game_data_yaml = YAML.dump(game_data_hash)
     save_file = File.open("saves/save#{$save_number}/game_data.yaml", 'w')
     save_file.puts(game_data_yaml)
@@ -21,20 +21,9 @@ module SaveUtils
 
   def self.new_game
     $save_number = Dir.glob('saves/*').size
-    default_board_matrix = [
-      ['R-black-a8', 'N-black-b8', 'B-black-c8', 'Q-black-d8', 'K-black-e8', 'B-black-f8', 'N-black-g8', 'R-black-h8'],
-      ['-black-a7', '-black-b7', '-black-c7', '-black-d7', '-black-e7', '-black-f7', '-black-g7', '-black-h7'],
-      ['', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', ''],
-      ['-white-a2', '-white-b2', '-white-c2', '-white-d2', '-white-e2', '-white-f2', '-white-g2', '-white-h2'],
-      ['R-white-a1', 'N-white-b1', 'B-white-c1', 'Q-white-d1', 'K-white-e1', 'B-white-f1', 'N-white-g1', 'R-white-h1']
-    ]
-    white_player = { color: 'white', name: nil }
-    black_player = { color: 'black', name: nil }
-    default_players_data = [white_player, black_player]
-
+    new_game_data = YAML.load_file('new_game_data.yaml')
+    default_board_matrix = new_game_data[:board_matrix]
+    default_players_data = new_game_data[:players_data]
     Game.new(default_players_data, default_board_matrix).run
   end
 
@@ -73,13 +62,4 @@ module SaveUtils
   end
 
   private_class_method :choose_save_file
-
-  private
-
-  def create_game_data
-    {
-      board_matrix: @board.to_matrix_data,
-      players_data: @players.map(&:to_player_data)
-    }
-  end
 end

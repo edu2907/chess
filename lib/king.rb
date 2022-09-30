@@ -2,13 +2,13 @@
 
 # The King Piece in chess
 class King < Piece
-  def initialize(color:, board:, pos:)
-    super(color, board, pos)
-    @symbol = symbols(color)
+  def initialize(board, **piece_data)
+    super(board, piece_data[:color], piece_data[:pos])
+    @symbol = symbols
     @notation_ltr = 'K'
   end
 
-  def symbols(color)
+  def symbols
     if color == 'white'
       '♔'
     else

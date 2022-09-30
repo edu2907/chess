@@ -2,8 +2,8 @@
 
 # The Bisp Piece in chess
 class Bisp < Piece
-  def initialize(color:, board:, pos:)
-    super(color, board, pos)
+  def initialize(board, **piece_data)
+    super(board, piece_data[:color], piece_data[:pos])
     @symbol = symbols
     @notation_ltr = 'B'
   end

@@ -65,11 +65,24 @@ class Board
     (row.to_i - 8).abs
   end
 
-  def to_matrix_data
+  def to_arr
     matrix.map do |row|
       row.map do |piece|
-        piece.nil? ? nil : piece.to_piece_data
+        piece.nil? ? nil : piece.to_h
       end
+    end
+  end
+
+  def create_piece(piece_data)
+    return if piece_data.nil?
+
+    case piece_data[:piece_ltr]
+    when 'N' then Knight.new(self, **piece_data)
+    when 'R' then Tower.new(self, **piece_data)
+    when 'Q' then Queen.new(self, **piece_data)
+    when 'K' then King.new(self, **piece_data)
+    when 'B' then Bisp.new(self, **piece_data)
+    when '' then Pawn.new(self, **piece_data)
     end
   end
 
@@ -83,20 +96,6 @@ class Board
       end
     end
     board_matrix
-  end
-
-  def create_piece(piece)
-    return if piece.nil?
-
-    piece_ltr, piece_color, piece_pos = piece.split('-')
-    case piece_ltr
-    when 'K' then King.new(board: self, color: piece_color, pos: piece_pos)
-    when 'Q' then Queen.new(board: self, color: piece_color, pos: piece_pos)
-    when 'B' then Bisp.new(board: self, color: piece_color, pos: piece_pos)
-    when 'N' then Knight.new(board: self, color: piece_color, pos: piece_pos)
-    when 'R' then Tower.new(board: self, color: piece_color, pos: piece_pos)
-    when '' then Pawn.new(board: self, color: piece_color, pos: piece_pos)
-    end
   end
 
   def format_board(string = "\n", colors = %i[black grey])

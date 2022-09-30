@@ -1,0 +1,151 @@
+---
+:board_matrix:
+- - :piece_ltr: R
+    :color: black
+    :pos: a8
+  - :piece_ltr: N
+    :color: black
+    :pos: b8
+  - :piece_ltr: B
+    :color: black
+    :pos: c8
+  - :piece_ltr: Q
+    :color: black
+    :pos: f8
+  - :piece_ltr: K
+    :color: black
+    :pos: e8
+  - :piece_ltr: B
+    :color: black
+    :pos: f8
+  - :piece_ltr: N
+    :color: black
+    :pos: g8
+  - :piece_ltr: R
+    :color: black
+    :pos: h8
+- - :piece_ltr: ''
+    :color: black
+    :pos: a7
+    :initial_pos: a7
+  - :piece_ltr: ''
+    :color: black
+    :pos: b7
+    :initial_pos: b7
+  - :piece_ltr: ''
+    :color: black
+    :pos: c7
+    :initial_pos: c7
+  - :piece_ltr: ''
+    :color: black
+    :pos: d7
+    :initial_pos: d7
+  - :piece_ltr: ''
+    :color: black
+    :pos: e7
+    :initial_pos: e7
+  - :piece_ltr: ''
+    :color: black
+    :pos: f7
+    :initial_pos: f7
+  - :piece_ltr: ''
+    :color: black
+    :pos: g7
+    :initial_pos: gG7
+  - :piece_ltr: ''
+    :color: black
+    :pos: h7
+    :initial_pos: h7
+- -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+- -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+- -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+- -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+- - :piece_ltr: ''
+    :color: white
+    :pos: a2
+    :initial_pos: a2
+  - :piece_ltr: ''
+    :color: white
+    :pos: b2
+    :initial_pos: b2
+  - :piece_ltr: ''
+    :color: white
+    :pos: c2
+    :initial_pos: c2
+  - :piece_ltr: ''
+    :color: white
+    :pos: d2
+    :initial_pos: c2
+  - :piece_ltr: ''
+    :color: white
+    :pos: e2
+    :initial_pos: e2
+  - :piece_ltr: ''
+    :color: white
+    :pos: f2
+    :initial_pos: f2
+  - :piece_ltr: ''
+    :color: white
+    :pos: g2
+    :initial_pos: g2
+  - :piece_ltr: ''
+    :color: white
+    :pos: h2
+    :initial_pos: h2
+- - :piece_ltr: R
+    :color: white
+    :pos: a1
+  - :piece_ltr: N
+    :color: white
+    :pos: b1
+  - :piece_ltr: B
+    :color: white
+    :pos: c1
+  - :piece_ltr: K
+    :color: white
+    :pos: d1
+  - :piece_ltr: Q
+    :color: white
+    :pos: e1
+  - :piece_ltr: B
+    :color: white
+    :pos: f1
+  - :piece_ltr: N
+    :color: white
+    :pos: g1
+  - :piece_ltr: R
+    :color: white
+    :pos: h1
+:players_data:
+- :color: white
+  :name:
+- :color: black
+  :name:

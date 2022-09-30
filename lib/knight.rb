@@ -2,9 +2,9 @@
 
 # The Knight Piece in chess
 class Knight < Piece
-  def initialize(color:, board:, pos:)
-    super(color, board, pos)
-    @symbol = symbols(color)
+  def initialize(board, **piece_data)
+    super(board, piece_data[:color], piece_data[:pos])
+    @symbol = symbols
     @notation_ltr = 'N'
   end
 
@@ -21,7 +21,7 @@ class Knight < Piece
     moves
   end
 
-  def symbols(color)
+  def symbols
     if color == 'white'
       '♘'
     else

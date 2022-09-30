@@ -18,7 +18,7 @@ class Game
   end
 
   def create_players(players_data)
-    players_data.map { |player_data| Player.new(board: board, color: player_data[:color], name: player_data[:name]) }
+    players_data.map { |player_data| Player.new(board: board, **player_data) }
   end
 
   def run
@@ -49,4 +49,11 @@ class Game
   def checkmate?; end
 
   def draw?; end
+
+  def to_h
+    {
+      board_matrix: @board.to_arr,
+      players_data: @players.map(&:to_h)
+    }
+  end
 end

@@ -71,10 +71,10 @@ class Player
     piece.notation_ltr + move
   end
 
-  def to_player_data
+  def to_h
     {
       color: @color,
-      name: name
+      name:
     }
   end
 

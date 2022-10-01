@@ -39,4 +39,12 @@ class Piece
     ally_piece = @board.at(ally_pos)
     !ally_piece.nil? && ally_piece.color == color
   end
+
+  def empty?(pos)
+    @board.at(pos).nil?
+  end
+
+  def valid_move?(move)
+    move.match?(/^[0-7][0-7]$/)
+  end
 end

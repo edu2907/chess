@@ -8,14 +8,6 @@ class Tower < Piece
     @notation_ltr = 'R'
   end
 
-  def symbols
-    if color == 'white'
-      '♖'
-    else
-      '♜'
-    end
-  end
-
   def possible_moves
     col, row = @board.convert_to_indexes(pos)
     moves = []
@@ -25,13 +17,24 @@ class Tower < Piece
       loop do
         move = "#{col + c}#{row + r}"
         break if !move.match?(/^[0-7][0-7]$/) || ally?(move)
-  
+
         moves << move
         break if enemy?(move)
+
         c += direction[0]
         r += direction[1]
       end
     end
     moves
+  end
+
+  private
+
+  def symbols
+    if color == 'white'
+      '♖'
+    else
+      '♜'
+    end
   end
 end

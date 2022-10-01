@@ -16,10 +16,12 @@ class Knight < Piece
     moves = []
     8.times do |i|
       move = "#{col + possible_cols[i]}#{row + possible_rows[i]}"
-      moves.push(move) unless !move.match?(/^[0-7][0-7]$/) && ally?(move)
+      moves.push(move) unless !move.match?(/^[0-7][0-7]$/) || ally?(move)
     end
     moves
   end
+
+  private
 
   def symbols
     if color == 'white'

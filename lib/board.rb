@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-require 'colorize'
+require_relative 'piece'
+require_relative 'pawn'
+require_relative 'tower'
+require_relative 'bisp'
+require_relative 'knight'
+require_relative 'queen'
+require_relative 'king'
 
 # Is a chess board
 class Board

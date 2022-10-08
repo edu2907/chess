@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'piece'
-require_relative 'pawn'
-require_relative 'tower'
-require_relative 'bisp'
-require_relative 'knight'
-require_relative 'queen'
-require_relative 'king'
-
 # Represents the chess player, is responsible for managing the pieces
 class Player
-  attr_reader :name, :mark_piece
+  attr_reader :name, :color, :mark_piece
 
-  def initialize(board:, color:, name:)
+  def initialize(game, board:, color:, name:)
+    @game = game
     @board = board
     @color = color
     @name = name || create_name
@@ -33,35 +26,72 @@ class Player
     end
   end
 
-  def move_piece
-    piece = valid_piece?(input_start_coord) until piece
-    initial_pos = piece.pos
-    target = valid_target?(piece, input_target) until target
-    return move_piece if target == 'back'
+  def execute_action
+    loop do
+      puts 'Perfom an action!'
+      command = gets.chomp.split(' ')
+      case command[0]
+      when 'mv' then return mv(command[1], command[2]) || next
+      when 'save' then return save
+      else puts 'Invalid Option'
+      end
+    end
+  end
 
-    @board.remove_at(initial_pos)
+  def to_h
+    {
+      color:,
+      name:
+    }
+  end
+
+  private
+
+  def mv(first_arg, target)
+    target ||= ''
+    return puts 'No argument error! Dont forget to insert your move' if first_arg.nil?
+
+    is_coordinate = ->(arg) { arg.match?(/^[a-h][1-8]$/) }
+    is_castling = ->(arg) { arg.match?(/\AO-O(-O)?\z/) }
+
+    case first_arg
+    in ^is_coordinate if is_coordinate.call(target)
+      move_piece(first_arg, target)
+    in ^is_castling then castling(first_arg)
+    else puts('Invalid move!')
+    end
+  end
+
+  def move_piece(piece_pos, target_arg)
+    piece = valid_piece?(piece_pos)
+    return if piece.nil?
+
+    target = valid_target?(piece, target_arg)
+    return if target.nil?
+
+    @board.remove_at(piece_pos)
     @board.place_at(piece, target)
     move_notation(piece, target)
   end
 
+  def castling(castling_move)
+    castling_move
+  end
+
   def valid_piece?(piece_coord)
+    return if piece_coord.nil?
+
     piece = @board.at(piece_coord)
-    if !piece_coord.match?(/^[a-h][1-8]$/)
-      puts 'Invalid input!'
-    elsif piece.nil? || @color != piece.color
-      puts 'Invalid piece!'
+    if piece.nil? || @color != piece.color
+      puts 'Selected piece error! There is no piece or the piece is from the enemy'
     else
       piece
     end
   end
 
   def valid_target?(piece, target)
-    return target if target == 'back'
-
-    if !target.match?(/^[a-h][1-8]$/)
-      puts 'Invalid input!'
-    elsif !piece.can_move_to?(target)
-      puts 'Invalid target!'
+    if !piece.can_move_to?(target)
+      puts 'The piece cannot move to the target!'
     else
       target
     end
@@ -71,22 +101,5 @@ class Player
     piece.notation_ltr + move
   end
 
-  def to_h
-    {
-      color: @color,
-      name:
-    }
-  end
-
-  private
-
-  def input_start_coord
-    puts 'Insert the coordinate of your selected piece: (Ex: a7)'
-    gets.chomp
-  end
-
-  def input_target
-    puts 'Insert the coordinate of your target: (or insert "back" to return)'
-    gets.chomp
-  end
+  def save; end
 end

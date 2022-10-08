@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'colorize'
 require_relative 'save_utils'
 require_relative 'game'
 

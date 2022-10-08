@@ -18,7 +18,7 @@ class Game
   end
 
   def create_players(players_data)
-    players_data.map { |player_data| Player.new(board: board, **player_data) }
+    players_data.map { |player_data| Player.new(self, board:, **player_data) }
   end
 
   def run
@@ -39,7 +39,7 @@ class Game
     puts " -> #{@current_player.name}'s Turn"
     @board.print_board
     @players.each { |player| puts "#{player.name}: #{player.mark_piece}" }
-    @current_player.move_piece
+    @current_player.execute_action
   end
 
   def next_player

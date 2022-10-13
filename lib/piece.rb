@@ -5,17 +5,24 @@ class Piece
   attr_accessor :pos
   attr_reader :color, :notation_ltr
 
-  def initialize(board, color, pos)
+  def initialize(board, color_arg, pos)
     @board = board
-    @color = color
+    @color = color_arg
     @pos = pos
   end
 
-  def can_move_to?(target_coord)
-    col, row = @board.convert_to_indexes(target_coord)
-    target_indexes = "#{col}#{row}"
+  def move(move, notation)
+    if can_move?(move)
+      @board.remove_at(pos)
+      @board.place_at(self, move)
+      @pos = move
+    else
+      puts "The selected piece cannot move to #{notation}!"
+    end
+  end
 
-    possible_moves.include?(target_indexes)
+  def can_move?(move)
+    possible_moves.include?(move)
   end
 
   def to_s
@@ -25,8 +32,7 @@ class Piece
   def to_h
     {
       piece_ltr: notation_ltr,
-      piece_color: color,
-      piece_pos: pos
+      color:
     }
   end
 
@@ -45,6 +51,6 @@ class Piece
   end
 
   def valid_move?(move)
-    move.match?(/^[0-7][0-7]$/)
+    move.all? { |index| (0..7).include?(index) }
   end
 end

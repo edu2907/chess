@@ -19,33 +19,17 @@ class Board
 
   # Accepts values as a coordinate ("A2") or indexes string
   def at(pos)
-    is_coordinate = ->(str) { str.match?(/^[a-h][1-8]$/) }
-    is_indexes = ->(str) { str.match?(/^[0-7][0-7]$/) }
-
-    case pos
-    when is_coordinate
-      row = convert_to_row_index(pos[1])
-      col = convert_to_col_index(pos[0])
-    when is_indexes
-      row = pos[1].to_i
-      col = pos[0].to_i
-    else return
-    end
-
+    col, row = pos
     matrix[row][col]
   end
 
-  def remove_at(coord)
-    col = convert_to_col_index(coord[0])
-    row = convert_to_row_index(coord[1])
-    matrix[row][col].pos = nil
+  def remove_at(pos)
+    col, row = pos
     matrix[row][col] = nil
   end
 
-  def place_at(piece, coord)
-    col = convert_to_col_index(coord[0])
-    row = convert_to_row_index(coord[1])
-    piece.pos = coord
+  def place_at(piece, pos)
+    col, row = pos
     matrix[row][col] = piece
   end
 
@@ -74,21 +58,8 @@ class Board
   def to_arr
     matrix.map do |row|
       row.map do |piece|
-        piece.nil? ? nil : piece.to_h
+        piece.nil? ? {} : piece.to_h
       end
-    end
-  end
-
-  def create_piece(piece_data)
-    return if piece_data.nil?
-
-    case piece_data[:piece_ltr]
-    when 'N' then Knight.new(self, **piece_data)
-    when 'R' then Tower.new(self, **piece_data)
-    when 'Q' then Queen.new(self, **piece_data)
-    when 'K' then King.new(self, **piece_data)
-    when 'B' then Bisp.new(self, **piece_data)
-    when '' then Pawn.new(self, **piece_data)
     end
   end
 
@@ -98,10 +69,22 @@ class Board
     board_matrix = Array.new(8) { Array.new(8) }
     matrix_data.each_with_index do |row, row_i|
       row.each_with_index do |piece_data, col_i|
+        piece_data[:pos] = [col_i, row_i]
         board_matrix[row_i][col_i] = create_piece(piece_data)
       end
     end
     board_matrix
+  end
+
+  def create_piece(piece_data)
+    case piece_data[:piece_ltr]
+    when 'N' then Knight.new(self, **piece_data)
+    when 'R' then Tower.new(self, **piece_data)
+    when 'Q' then Queen.new(self, **piece_data)
+    when 'K' then King.new(self, **piece_data)
+    when 'B' then Bisp.new(self, **piece_data)
+    when '' then Pawn.new(self, **piece_data)
+    end
   end
 
   def format_board(string = "\n", colors = %i[black grey])

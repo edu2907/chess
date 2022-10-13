@@ -62,16 +62,12 @@ class Player
     end
   end
 
-  def move_piece(piece_pos, target_arg)
-    piece = valid_piece?(piece_pos)
-    return if piece.nil?
+  def move_piece(piece_coord, move_coord)
+    piece = valid_piece?(piece_coord)
+    return puts 'Selected piece error! There is no piece or the piece is from the enemy' if piece.nil?
 
-    target = valid_target?(piece, target_arg)
-    return if target.nil?
-
-    @board.remove_at(piece_pos)
-    @board.place_at(piece, target)
-    move_notation(piece, target)
+    move = convert_to_indexes(move_coord)
+    piece.move(move, move_coord)
   end
 
   def castling(castling_move)
@@ -79,9 +75,8 @@ class Player
   end
 
   def valid_piece?(piece_coord)
-    return if piece_coord.nil?
-
-    piece = @board.at(piece_coord)
+    piece_i = convert_to_indexes(piece_coord)
+    piece = @board.at(piece_i)
     if piece.nil? || @color != piece.color
       puts 'Selected piece error! There is no piece or the piece is from the enemy'
     else
@@ -89,12 +84,19 @@ class Player
     end
   end
 
-  def valid_target?(piece, target)
-    if !piece.can_move_to?(target)
-      puts 'The piece cannot move to the target!'
-    else
-      target
-    end
+  def convert_to_indexes(coord)
+    indexes = []
+    indexes << convert_to_col_index(coord[0])
+    indexes << convert_to_row_index(coord[1])
+    indexes
+  end
+
+  def convert_to_col_index(col)
+    @board.columns.index(col)
+  end
+
+  def convert_to_row_index(row)
+    (row.to_i - 8).abs
   end
 
   def move_notation(piece, move)

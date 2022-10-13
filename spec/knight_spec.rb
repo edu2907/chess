@@ -2,15 +2,14 @@ require './lib/piece'
 require './lib/knight'
 
 describe Knight do
-  describe '#can_move_to?' do
+  describe '#can_move?' do
     let(:board) { double('Board') }
-    let(:knight_data) { { color: 'white', pos: 'd4' } }
+    let(:knight_data) { { color: 'white', pos: [3, 4] } }
     subject(:knight) { described_class.new(board, **knight_data) }
     let(:enemy_piece) { double('Piece') }
     let(:ally_piece) { double('Piece') }
 
     before do
-      allow(board).to receive(:convert_to_indexes).with('d4').and_return([3, 4])
       allow(board).to receive(:at).and_return(nil)
       allow(enemy_piece).to receive(:color).and_return('black')
       allow(ally_piece).to receive(:color).and_return('white')
@@ -18,53 +17,53 @@ describe Knight do
 
     context 'when the move is e6' do
       it 'returns true' do
-        coordinate = 'e6'
+        coordinate = [4, 2]
         allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([4, 2])
-        result = knight.can_move_to?(coordinate)
+        result = knight.can_move?(coordinate)
         expect(result).to be true
       end
     end
 
     context 'when the move is f5' do
       it 'returns true' do
-        coordinate = 'f5'
+        coordinate = [5, 3]
         allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([5, 3])
-        result = knight.can_move_to?(coordinate)
+        result = knight.can_move?(coordinate)
         expect(result).to be true
       end
     end
 
     context 'when move is out of range of piece moves' do
       it 'returns false' do
-        coordinate = 'e6'
+        coordinate = [3, 2]
         allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([3, 2])
-        result = knight.can_move_to?(coordinate)
+        result = knight.can_move?(coordinate)
         expect(result).to be false
       end
     end
 
     context 'when there is a ally piece in move target' do
       before do
-        allow(board).to receive(:at).with('42').and_return(ally_piece)
+        allow(board).to receive(:at).with([4, 2]).and_return(ally_piece)
       end
 
       it 'returns false' do
-        coordinate = 'e6'
+        coordinate = [4, 2]
         allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([4, 2])
-        result = knight.can_move_to?(coordinate)
+        result = knight.can_move?(coordinate)
         expect(result).to be false
       end
     end
 
     context 'when there is a enemy piece in move target' do
       before do
-        allow(board).to receive(:at).with('42').and_return(enemy_piece)
+        allow(board).to receive(:at).with([4, 2]).and_return(enemy_piece)
       end
 
       it 'returns true' do
-        coordinate = 'e6'
+        coordinate = [4, 2]
         allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([4, 2])
-        result = knight.can_move_to?(coordinate)
+        result = knight.can_move?(coordinate)
         expect(result).to be true
       end
     end

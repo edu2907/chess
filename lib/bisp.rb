@@ -9,14 +9,14 @@ class Bisp < Piece
   end
 
   def possible_moves
-    col, row = @board.convert_to_indexes(pos)
+    col, row = pos
     moves = []
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
     directions.each do |direction|
       c, r = direction
       loop do
-        move = "#{col + c}#{row + r}"
-        break if !move.match?(/^[0-7][0-7]$/) || ally?(move)
+        move = [col + c, row + r]
+        break if !valid_move?(move) || ally?(move)
 
         moves << move
         break if enemy?(move)

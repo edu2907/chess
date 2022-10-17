@@ -3,10 +3,9 @@
 # The Pawn Piece in chess
 class Pawn < Piece
   def initialize(board, **piece_data)
-    super(board, piece_data[:color], piece_data[:pos])
+    super(board, piece_data[:color], piece_data[:pos], piece_data[:has_moved])
     @symbol = symbols
     @notation_ltr = ''
-    @has_moved = piece_data[:has_moved] || false
   end
 
   def possible_moves

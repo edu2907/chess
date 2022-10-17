@@ -9,6 +9,7 @@ module SaveUtils
     FileUtils.mkdir_p(save_dir) unless Dir.exist?(save_dir)
     FileUtils.touch("#{save_dir}move_record.txt")
     FileUtils.touch("#{save_dir}game_data.yaml")
+    save_game
   end
 
   def save_game

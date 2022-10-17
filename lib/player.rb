@@ -64,10 +64,14 @@ class Player
 
   def move_piece(piece_coord, move_coord)
     piece = valid_piece?(piece_coord)
-    return puts 'Selected piece error! There is no piece or the piece is from the enemy' if piece.nil?
+    return if piece.nil?
 
     move = convert_to_indexes(move_coord)
-    piece.move(move, move_coord)
+    if piece.can_move?(move)
+      piece.move(move, move_coord)
+    else
+      puts "The selected piece cannot move to #{move_coord}!"
+    end
   end
 
   def castling(castling_move)

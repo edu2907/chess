@@ -5,20 +5,19 @@ class Piece
   attr_accessor :pos
   attr_reader :color, :notation_ltr
 
-  def initialize(board, color_arg, pos)
+  def initialize(board, color_arg, pos, has_moved)
     @board = board
     @color = color_arg
+    @has_moved = has_moved || false
     @pos = pos
   end
 
   def move(move, notation)
-    if can_move?(move)
-      @board.remove_at(pos)
-      @board.place_at(self, move)
-      @pos = move
-    else
-      puts "The selected piece cannot move to #{notation}!"
-    end
+    @board.remove_at(pos)
+    @board.place_at(self, move)
+    @pos = move
+    @has_moved = true
+    move_notation(notation)
   end
 
   def can_move?(move)
@@ -32,8 +31,13 @@ class Piece
   def to_h
     {
       piece_ltr: notation_ltr,
-      color:
+      color:,
+      has_moved: @has_moved
     }
+  end
+
+  def move_notation(move)
+    notation_ltr + move
   end
 
   def enemy?(enemy_pos)

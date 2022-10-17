@@ -40,21 +40,6 @@ class Board
     puts board_str
   end
 
-  def convert_to_indexes(coord)
-    indexes = []
-    indexes << convert_to_col_index(coord[0])
-    indexes << convert_to_row_index(coord[1])
-    indexes
-  end
-
-  def convert_to_col_index(col)
-    columns.index(col)
-  end
-
-  def convert_to_row_index(row)
-    (row.to_i - 8).abs
-  end
-
   def to_arr
     matrix.map do |row|
       row.map do |piece|

@@ -29,6 +29,7 @@ class Game
       return print_win_message if checkmate?
       return print_draw_message if draw?
 
+      update_check_status
       next_player
       save_game
     end
@@ -40,6 +41,10 @@ class Game
     @board.print_board
     @players.each { |player| puts "#{player.name}: #{player.mark_piece}" }
     @current_player.execute_action
+  end
+
+  def update_check_status
+    @board.select_by_keys(notation_ltr: 'K').each(&:verify_check_status)
   end
 
   def next_player

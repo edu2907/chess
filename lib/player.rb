@@ -11,6 +11,7 @@ class Player
     @color = color
     @name = name || create_name
     @mark_piece = mark_pieces
+    @king = find_king
   end
 
   def create_name
@@ -25,6 +26,11 @@ class Player
     else
       '♟'
     end
+  end
+
+  def find_king
+    king_keys = { color:, notation_ltr: 'K' }
+    @board.select_by_keys(**king_keys)
   end
 
   def execute_action

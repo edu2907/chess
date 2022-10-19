@@ -10,6 +10,7 @@ require_relative 'king'
 
 # Is a chess board
 class Board
+  include Enumerable
   include NotationUtils
   attr_reader :matrix
 
@@ -37,6 +38,26 @@ class Board
     board_str += format_board
     board_str += "    #{columns.join('  ')}"
     puts board_str
+  end
+
+  def each(&block)
+    @matrix.flatten.each(&block)
+  end
+
+  def select_by_keys(**match_keys)
+    select do |tile|
+      match_keys.all? do |key, _value|
+        !tile.nil? && tile.public_send(key) == match_keys[key]
+      end
+    end
+  end
+
+  def reject_by_keys(**match_keys)
+    reject do |tile|
+      match_keys.all? do |key, _value|
+        tile.nil? || tile.public_send(key) == match_keys[key]
+      end
+    end
   end
 
   def to_arr

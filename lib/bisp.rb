@@ -8,7 +8,7 @@ class Bisp < Piece
     @notation_ltr = 'B'
   end
 
-  def possible_moves
+  def generate_moves
     col, row = pos
     moves = []
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1]]

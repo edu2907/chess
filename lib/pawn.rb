@@ -8,7 +8,7 @@ class Pawn < Piece
     @notation_ltr = ''
   end
 
-  def possible_moves
+  def generate_moves
     col, row = pos
     direction = (color == 'white' ? -1 : 1)
     moves = []
@@ -17,10 +17,6 @@ class Pawn < Piece
     moves += pawn_captures(col, row, direction)
 
     moves.compact
-  end
-
-  def to_h
-    super.merge({ has_moved: @has_moved })
   end
 
   private

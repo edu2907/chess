@@ -1,8 +1,9 @@
+require './lib/notation_utils'
 require './lib/piece'
 require './lib/tower'
 
 describe Tower do
-  describe '#can_move?' do
+  describe '#piece_move?' do
     let(:board) { double('Board') }
     let(:tower_data) { { color: 'white', pos: [3, 4] } }
     subject(:tower) { described_class.new(board, **tower_data) }
@@ -18,7 +19,7 @@ describe Tower do
     context 'when the move is d6' do
       it 'returns true' do
         coordinate = [3, 2]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -26,7 +27,7 @@ describe Tower do
     context 'when the move is a4' do
       it 'returns true' do
         coordinate = [0, 4]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -34,7 +35,7 @@ describe Tower do
     context 'when the move is d2' do
       it 'returns true' do
         coordinate = [3, 6]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -42,7 +43,7 @@ describe Tower do
     context 'when the move is g4' do
       it 'returns true' do
         coordinate = [7, 4]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -50,7 +51,7 @@ describe Tower do
     context 'when move is out of range of piece moves' do
       it 'returns false' do
         coordinate = [1, 2]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -62,7 +63,7 @@ describe Tower do
 
       it 'returns false' do
         coordinate = [3, 2]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -74,7 +75,7 @@ describe Tower do
 
       it 'returns true' do
         coordinate = [3, 2]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -86,7 +87,7 @@ describe Tower do
 
       it 'returns false' do
         coordinate = [3, 2]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -98,7 +99,7 @@ describe Tower do
 
       it 'returns false' do
         coordinate = [3, 2]
-        result = tower.can_move?(coordinate)
+        result = tower.piece_move?(coordinate)
         expect(result).to be false
       end
     end

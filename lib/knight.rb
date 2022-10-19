@@ -8,7 +8,7 @@ class Knight < Piece
     @notation_ltr = 'N'
   end
 
-  def possible_moves
+  def generate_moves
     possible_rows = [2, 1, -1, -2, -2, -1, 1, 2, 2]
     possible_cols = [1, 2, 2, 1, -1, -2, -2, -1, 1]
 

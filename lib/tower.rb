@@ -8,7 +8,7 @@ class Tower < Piece
     @notation_ltr = 'R'
   end
 
-  def possible_moves
+  def generate_moves
     col, row = pos
     moves = []
     directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]

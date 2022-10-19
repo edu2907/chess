@@ -1,8 +1,9 @@
+require './lib/notation_utils'
 require './lib/piece'
 require './lib/bisp'
 
 describe Bisp do
-  describe '#can_move?' do
+  describe '#piece_move?' do
     let(:board) { double('Board') }
     let(:bisp_data) { { color: 'white', pos: [3, 4] } }
     subject(:bisp) { described_class.new(board, **bisp_data) }
@@ -18,7 +19,7 @@ describe Bisp do
     context 'when the move is e5' do
       it 'returns true' do
         coordinate = [4, 3]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -26,7 +27,7 @@ describe Bisp do
     context 'when the move is b6' do
       it 'returns true' do
         coordinate = [1, 2]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -34,7 +35,7 @@ describe Bisp do
     context 'when the move is a1 ' do
       it 'returns true' do
         coordinate = [0, 7]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -42,7 +43,7 @@ describe Bisp do
     context 'when the move is e3 ' do
       it 'returns true' do
         coordinate = [4, 5]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -50,7 +51,7 @@ describe Bisp do
     context 'when the move is out of range of piece moves' do
       it 'returns false' do
         coordinate = [3, 3]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -62,7 +63,7 @@ describe Bisp do
 
       it 'returns false' do
         coordinate = [0, 7]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -74,7 +75,7 @@ describe Bisp do
 
       it 'returns true' do
         coordinate = [0, 7]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -86,7 +87,7 @@ describe Bisp do
 
       it 'returns false' do
         coordinate = [0, 7]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -98,7 +99,7 @@ describe Bisp do
 
       it 'returns false' do
         coordinate = [0, 7]
-        result = bisp.can_move?(coordinate)
+        result = bisp.piece_move?(coordinate)
         expect(result).to be false
       end
     end

@@ -21,8 +21,18 @@ class Piece
     move_notation(notation)
   end
 
+  # Verifies if the piece can perfom the move, considering the game status (like Check)
   def can_move?(move)
     possible_moves.include?(move)
+  end
+
+  def possible_moves
+    generate_moves
+  end
+
+  # Verifies if the piece can perfom the move, regardless of the game status (like Check)
+  def piece_move?(move)
+    generate_moves.include?(move)
   end
 
   def to_s

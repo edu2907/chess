@@ -1,8 +1,9 @@
+require './lib/notation_utils'
 require './lib/piece'
 require './lib/pawn'
 
 describe Pawn do
-  describe '#can_move?' do
+  describe '#piece_move?' do
     let(:board) { double('Board') }
     let(:enemy_piece) { double('Piece') }
     let(:ally_piece) { double('Piece') }
@@ -19,7 +20,7 @@ describe Pawn do
 
       it 'returns true' do
         coordinate = [3, 5]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -30,7 +31,7 @@ describe Pawn do
 
       it 'returns true' do
         coordinate = [3, 4]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -41,7 +42,7 @@ describe Pawn do
 
       it 'returns false' do
         coordinate = [3, 3]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -56,7 +57,7 @@ describe Pawn do
 
       it 'returns false' do
         coordinate = [3, 5]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -71,7 +72,7 @@ describe Pawn do
 
       it 'returns false' do
         coordinate = [3, 4]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -86,7 +87,7 @@ describe Pawn do
 
       it 'returns true' do
         coordinate = [2, 5]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -101,7 +102,7 @@ describe Pawn do
 
       it 'returns false' do
         coordinate = [2, 5]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -112,7 +113,7 @@ describe Pawn do
 
       it 'returns false' do
         coordinate = [4, 5]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -123,7 +124,7 @@ describe Pawn do
 
       it 'returns false' do
         coordinate = [3, 3]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -134,7 +135,7 @@ describe Pawn do
 
       xit 'returns true' do
         coordinate = [3, 3]
-        result = pawn.can_move?(coordinate)
+        result = pawn.piece_move?(coordinate)
         expect(result).to be true
       end
     end

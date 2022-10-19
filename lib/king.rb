@@ -2,13 +2,16 @@
 
 # The King Piece in chess
 class King < Piece
+  attr_accessor :check_status
+
   def initialize(board, **piece_data)
     super(board, piece_data[:color], piece_data[:pos], piece_data[:has_moved])
     @symbol = symbols
     @notation_ltr = 'K'
+    @check_status = piece_data[:check_status] || false
   end
 
-  def possible_moves
+  def generate_moves
     possible_rows = [1, 1, 1, 0, 0, -1, -1, -1]
     possible_cols = [-1, 0, 1, -1, 1, -1, 0, 1]
 
@@ -19,6 +22,11 @@ class King < Piece
       moves.push(move) unless !valid_move?(move) || ally?(move)
     end
     moves
+  end
+
+  def verify_check_status
+    enemies = @board.reject_by_keys(color:)
+    @check_status = enemies.any? { |enemy| enemy.piece_move?(pos) }
   end
 
   private

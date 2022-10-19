@@ -1,8 +1,9 @@
+require './lib/notation_utils'
 require './lib/piece'
 require './lib/knight'
 
 describe Knight do
-  describe '#can_move?' do
+  describe '#piece_move?' do
     let(:board) { double('Board') }
     let(:knight_data) { { color: 'white', pos: [3, 4] } }
     subject(:knight) { described_class.new(board, **knight_data) }
@@ -18,7 +19,7 @@ describe Knight do
     context 'when the move is e6' do
       it 'returns true' do
         coordinate = [4, 2]
-        result = knight.can_move?(coordinate)
+        result = knight.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -26,7 +27,7 @@ describe Knight do
     context 'when the move is f5' do
       it 'returns true' do
         coordinate = [5, 3]
-        result = knight.can_move?(coordinate)
+        result = knight.piece_move?(coordinate)
         expect(result).to be true
       end
     end
@@ -34,7 +35,7 @@ describe Knight do
     context 'when move is out of range of piece moves' do
       it 'returns false' do
         coordinate = [3, 2]
-        result = knight.can_move?(coordinate)
+        result = knight.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -46,7 +47,7 @@ describe Knight do
 
       it 'returns false' do
         coordinate = [4, 2]
-        result = knight.can_move?(coordinate)
+        result = knight.piece_move?(coordinate)
         expect(result).to be false
       end
     end
@@ -58,7 +59,7 @@ describe Knight do
 
       it 'returns true' do
         coordinate = [4, 2]
-        result = knight.can_move?(coordinate)
+        result = knight.piece_move?(coordinate)
         expect(result).to be true
       end
     end

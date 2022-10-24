@@ -2,8 +2,9 @@
 
 # Group of attributes and behaviors shared between chess pieces. Should not be instatiated.
 class Piece
-  attr_accessor :pos
-  attr_reader :color, :notation_ltr
+  include NotationUtils
+
+  attr_reader :color, :notation_ltr, :pos, :has_moved
 
   def initialize(board, color_arg, pos, has_moved)
     @board = board
@@ -30,9 +31,9 @@ class Piece
 
   def to_h
     {
-      piece_ltr: notation_ltr,
-      color:,
-      has_moved: @has_moved
+      notation_ltr:,
+      has_moved:,
+      color:
     }
   end
 

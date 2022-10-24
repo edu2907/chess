@@ -2,6 +2,7 @@
 
 # Represents the chess player, is responsible for managing the pieces
 class Player
+  include NotationUtils
   attr_reader :name, :color, :mark_piece
 
   def initialize(game, board:, color:, name:)
@@ -51,14 +52,12 @@ class Player
     target ||= ''
     return puts 'No argument error! Dont forget to insert your move' if first_arg.nil?
 
-    is_coordinate = ->(arg) { arg.match?(/^[a-h][1-8]$/) }
-    is_castling = ->(arg) { arg.match?(/\AO-O(-O)?\z/) }
-
-    case first_arg
-    in ^is_coordinate if is_coordinate.call(target)
+    if notation?(first_arg) && notation?(target)
       move_piece(first_arg, target)
-    in ^is_castling then castling(first_arg)
-    else puts('Invalid move!')
+    elsif castling?(first_arg)
+      castling(first_arg)
+    else
+      puts('Invalid move!')
     end
   end
 
@@ -66,7 +65,7 @@ class Player
     piece = valid_piece?(piece_coord)
     return if piece.nil?
 
-    move = convert_to_indexes(move_coord)
+    move = convert_to_coordinate(move_coord)
     if piece.can_move?(move)
       piece.move(move, move_coord)
     else
@@ -79,32 +78,13 @@ class Player
   end
 
   def valid_piece?(piece_coord)
-    piece_i = convert_to_indexes(piece_coord)
+    piece_i = convert_to_coordinate(piece_coord)
     piece = @board.at(piece_i)
     if piece.nil? || @color != piece.color
       puts 'Selected piece error! There is no piece or the piece is from the enemy'
     else
       piece
     end
-  end
-
-  def convert_to_indexes(coord)
-    indexes = []
-    indexes << convert_to_col_index(coord[0])
-    indexes << convert_to_row_index(coord[1])
-    indexes
-  end
-
-  def convert_to_col_index(col)
-    @board.columns.index(col)
-  end
-
-  def convert_to_row_index(row)
-    (row.to_i - 8).abs
-  end
-
-  def move_notation(piece, move)
-    piece.notation_ltr + move
   end
 
   def save; end

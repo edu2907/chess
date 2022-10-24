@@ -72,7 +72,6 @@ describe King do
 
       xit 'returns true' do
         move = 'O-O-O'
-        allow(board).to receive(:convert_to_indexes).with(move).and_return([2, 7])
         result = king.can_move?(move)
         expect(result).to be true
       end

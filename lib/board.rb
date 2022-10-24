@@ -10,14 +10,13 @@ require_relative 'king'
 
 # Is a chess board
 class Board
-  attr_reader :columns, :matrix
+  include NotationUtils
+  attr_reader :matrix
 
   def initialize(matrix_data)
     @matrix = create_board_matrix(matrix_data)
-    @columns = %w[a b c d e f g h]
   end
 
-  # Accepts values as a coordinate ("A2") or indexes string
   def at(pos)
     col, row = pos
     matrix[row][col]
@@ -62,7 +61,7 @@ class Board
   end
 
   def create_piece(piece_data)
-    case piece_data[:piece_ltr]
+    case piece_data[:notation_ltr]
     when 'N' then Knight.new(self, **piece_data)
     when 'R' then Tower.new(self, **piece_data)
     when 'Q' then Queen.new(self, **piece_data)

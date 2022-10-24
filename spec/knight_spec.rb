@@ -18,7 +18,6 @@ describe Knight do
     context 'when the move is e6' do
       it 'returns true' do
         coordinate = [4, 2]
-        allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([4, 2])
         result = knight.can_move?(coordinate)
         expect(result).to be true
       end
@@ -27,7 +26,6 @@ describe Knight do
     context 'when the move is f5' do
       it 'returns true' do
         coordinate = [5, 3]
-        allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([5, 3])
         result = knight.can_move?(coordinate)
         expect(result).to be true
       end
@@ -36,7 +34,6 @@ describe Knight do
     context 'when move is out of range of piece moves' do
       it 'returns false' do
         coordinate = [3, 2]
-        allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([3, 2])
         result = knight.can_move?(coordinate)
         expect(result).to be false
       end
@@ -49,7 +46,6 @@ describe Knight do
 
       it 'returns false' do
         coordinate = [4, 2]
-        allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([4, 2])
         result = knight.can_move?(coordinate)
         expect(result).to be false
       end
@@ -62,7 +58,6 @@ describe Knight do
 
       it 'returns true' do
         coordinate = [4, 2]
-        allow(board).to receive(:convert_to_indexes).with(coordinate).and_return([4, 2])
         result = knight.can_move?(coordinate)
         expect(result).to be true
       end

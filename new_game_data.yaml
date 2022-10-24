@@ -1,36 +1,36 @@
 ---
 :board_matrix:
-- - :piece_ltr: R
+- - :notation_ltr: R
     :color: black
-  - :piece_ltr: N
+  - :notation_ltr: N
     :color: black
-  - :piece_ltr: B
+  - :notation_ltr: B
     :color: black
-  - :piece_ltr: Q
+  - :notation_ltr: Q
     :color: black
-  - :piece_ltr: K
+  - :notation_ltr: K
     :color: black
-  - :piece_ltr: B
+  - :notation_ltr: B
     :color: black
-  - :piece_ltr: N
+  - :notation_ltr: N
     :color: black
-  - :piece_ltr: R
+  - :notation_ltr: R
     :color: black
-- - :piece_ltr: ''
+- - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: black
 - - {}
   - {}
@@ -64,37 +64,37 @@
   - {}
   - {}
   - {}
-- - :piece_ltr: ''
+- - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-  - :piece_ltr: ''
+  - :notation_ltr: ''
     :color: white
-- - :piece_ltr: R
+- - :notation_ltr: R
     :color: white
-  - :piece_ltr: N
+  - :notation_ltr: N
     :color: white
-  - :piece_ltr: B
+  - :notation_ltr: B
     :color: white
-  - :piece_ltr: K
+  - :notation_ltr: K
     :color: white
-  - :piece_ltr: Q
+  - :notation_ltr: Q
     :color: white
-  - :piece_ltr: B
+  - :notation_ltr: B
     :color: white
-  - :piece_ltr: N
+  - :notation_ltr: N
     :color: white
-  - :piece_ltr: R
+  - :notation_ltr: R
     :color: white
 :players_data:
 - :color: white

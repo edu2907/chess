@@ -67,15 +67,15 @@ class Player
     end
   end
 
-  def move_piece(piece_coord, move_coord)
-    piece = valid_piece?(piece_coord)
+  def move_piece(notation_pos, move_notation)
+    piece = valid_piece?(notation_pos)
     return if piece.nil?
 
-    move = convert_to_coordinate(move_coord)
-    if piece.can_move?(move)
-      piece.move(move, move_coord)
+    move_coord = convert_to_coordinate(move_notation)
+    if piece.can_move?(move_coord)
+      piece.move(move_coord, move_notation)
     else
-      puts "The selected piece cannot move to #{move_coord}!"
+      puts "The selected piece cannot move to #{move_notation}!"
     end
   end
 

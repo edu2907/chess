@@ -41,22 +41,18 @@ class Board
   end
 
   def each(&block)
-    @matrix.flatten.each(&block)
+    matrix.flatten.compact.each(&block)
   end
 
   def select_by_keys(**match_keys)
-    select do |tile|
-      match_keys.all? do |key, _value|
-        !tile.nil? && tile.public_send(key) == match_keys[key]
-      end
+    select do |piece|
+      match_keys.all? { |key, _value| piece.public_send(key) == match_keys[key] }
     end
   end
 
   def reject_by_keys(**match_keys)
-    reject do |tile|
-      match_keys.all? do |key, _value|
-        tile.nil? || tile.public_send(key) == match_keys[key]
-      end
+    reject do |piece|
+      match_keys.all? { |key, _value| piece.public_send(key) == match_keys[key] }
     end
   end
 

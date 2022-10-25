@@ -4,7 +4,7 @@
 class Piece
   include NotationUtils
 
-  attr_reader :color, :notation_ltr, :pos, :has_moved
+  attr_reader :color, :notation_ltr, :pos, :has_moved, :current_move_set
 
   def initialize(board, color_arg, pos, has_moved)
     @board = board
@@ -13,17 +13,21 @@ class Piece
     @pos = pos
   end
 
-  def move(move, notation)
+  def move(move_coord, move_notation)
     @board.remove_at(pos)
-    @board.place_at(self, move)
-    @pos = move
+    @board.place_at(self, move_coord)
+    @pos = move_coord
     @has_moved = true
-    move_notation(notation)
+    move_notation(move_notation)
   end
 
   # Verifies if the piece can perfom the move, considering the game status (like Check)
   def can_move?(move)
-    possible_moves.include?(move)
+    current_move_set.include?(move)
+  end
+
+  def update_move_set
+    @current_move_set = possible_moves
   end
 
   def possible_moves

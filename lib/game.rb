@@ -23,13 +23,13 @@ class Game
 
   def run
     loop do
+      update_game_status
       move = execute_round
       record_movement(move)
 
       return print_win_message if checkmate?
       return print_draw_message if draw?
 
-      update_check_status
       next_player
       save_game
     end
@@ -41,6 +41,15 @@ class Game
     @board.print_board
     @players.each { |player| puts "#{player.name}: #{player.mark_piece}" }
     @current_player.execute_action
+  end
+
+  def update_game_status
+    update_check_status
+    update_pieces_moveset
+  end
+
+  def update_pieces_moveset
+    @board.each(&:update_move_set)
   end
 
   def update_check_status

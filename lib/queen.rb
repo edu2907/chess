@@ -8,7 +8,7 @@ class Queen < Piece
     @notation_ltr = 'Q'
   end
 
-  def generate_moves
+  def generate_pseudo_moves
     col, row = pos
     moves = []
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [1, 0], [-1, 0], [0, 1], [0, -1]]

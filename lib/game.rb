@@ -22,6 +22,7 @@ class Game
   end
 
   def run
+    update_pieces_moveset
     loop do
       update_game_status
       move = execute_round
@@ -49,7 +50,8 @@ class Game
   end
 
   def update_pieces_moveset
-    @board.each(&:update_move_set)
+    @board.each(&:update_pseudo_moves)
+    @board.each(&:update_legal_moves)
   end
 
   def update_check_status

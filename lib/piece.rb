@@ -4,7 +4,7 @@
 class Piece
   include NotationUtils
 
-  attr_reader :color, :notation_ltr, :pos, :has_moved, :current_move_set
+  attr_reader :color, :notation_ltr, :pos, :has_moved
 
   def initialize(board, color_arg, pos, has_moved)
     @board = board
@@ -21,22 +21,23 @@ class Piece
     move_notation(move_notation)
   end
 
-  # Verifies if the piece can perfom the move, considering the game status (like Check)
+  # Pseudo Legal Moves are moves that a piece can perfom, regardless of the game status (like Check)
+  # Legal Moves Moves are moves that a piece can perfom, considering the game status (like Check)
+
+  def update_pseudo_moves
+    @current_pseudo_moves = generate_pseudo_moves
+  end
+
+  def update_legal_moves
+    @current_legal_moves = generate_legal_moves
+  end
+
+  def move_set?(move)
+    @current_pseudo_moves.include?(move)
+  end
+
   def can_move?(move)
-    current_move_set.include?(move)
-  end
-
-  def update_move_set
-    @current_move_set = possible_moves
-  end
-
-  def possible_moves
-    generate_moves
-  end
-
-  # Verifies if the piece can perfom the move, regardless of the game status (like Check)
-  def piece_move?(move)
-    generate_moves.include?(move)
+    @current_legal_moves.include?(move)
   end
 
   def to_s
@@ -51,8 +52,10 @@ class Piece
     }
   end
 
-  def move_notation(move)
-    notation_ltr + move
+  protected
+
+  def generate_legal_moves
+    @current_pseudo_moves
   end
 
   def enemy?(enemy_pos)

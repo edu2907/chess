@@ -8,7 +8,7 @@ class Pawn < Piece
     @notation_ltr = ''
   end
 
-  def generate_moves
+  def generate_pseudo_moves
     col, row = pos
     direction = (color == 'white' ? -1 : 1)
     moves = []

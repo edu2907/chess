@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# The Tower Piece in chess
-class Tower < Piece
+# The Rook Piece in chess
+class Rook < Piece
   def initialize(board, **piece_data)
     super(board, piece_data[:color], piece_data[:pos], piece_data[:has_moved])
     @symbol = symbols

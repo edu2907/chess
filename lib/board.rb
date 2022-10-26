@@ -2,7 +2,7 @@
 
 require_relative 'piece'
 require_relative 'pawn'
-require_relative 'tower'
+require_relative 'rook'
 require_relative 'bisp'
 require_relative 'knight'
 require_relative 'queen'
@@ -80,7 +80,7 @@ class Board
   def create_piece(piece_data)
     case piece_data[:notation_ltr]
     when 'N' then Knight.new(self, **piece_data)
-    when 'R' then Tower.new(self, **piece_data)
+    when 'R' then Rook.new(self, **piece_data)
     when 'Q' then Queen.new(self, **piece_data)
     when 'K' then King.new(self, **piece_data)
     when 'B' then Bisp.new(self, **piece_data)

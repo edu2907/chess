@@ -1,12 +1,12 @@
 require './lib/notation_utils'
 require './lib/piece'
-require './lib/tower'
+require './lib/rook'
 
-describe Tower do
+describe Rook do
   describe '#generate_pseudo_moves' do
     let(:board) { double('Board') }
-    let(:tower_data) { { color: 'white', pos: [3, 4] } }
-    subject(:tower) { described_class.new(board, **tower_data) }
+    let(:rook_data) { { color: 'white', pos: [3, 4] } }
+    subject(:rook) { described_class.new(board, **rook_data) }
     let(:enemy_piece) { double('Piece') }
     let(:ally_piece) { double('Piece') }
 
@@ -19,7 +19,7 @@ describe Tower do
     context 'when the move is d6' do
       it 'include the move in the array of moves' do
         coordinate = [3, 2]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).to include(coordinate)
       end
     end
@@ -27,7 +27,7 @@ describe Tower do
     context 'when the move is a4' do
       it 'include the move in the array of moves' do
         coordinate = [0, 4]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).to include(coordinate)
       end
     end
@@ -35,7 +35,7 @@ describe Tower do
     context 'when the move is d2' do
       it 'include the move in the array of moves' do
         coordinate = [3, 6]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).to include(coordinate)
       end
     end
@@ -43,7 +43,7 @@ describe Tower do
     context 'when the move is g4' do
       it 'include the move in the array of moves' do
         coordinate = [7, 4]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).to include(coordinate)
       end
     end
@@ -51,7 +51,7 @@ describe Tower do
     context 'when move is out of range of piece moves' do
       it 'exclude the move in the array of moves' do
         coordinate = [1, 2]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).not_to include(coordinate)
       end
     end
@@ -63,7 +63,7 @@ describe Tower do
 
       it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).not_to include(coordinate)
       end
     end
@@ -75,7 +75,7 @@ describe Tower do
 
       it 'include the move in the array of moves' do
         coordinate = [3, 2]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).to include(coordinate)
       end
     end
@@ -87,7 +87,7 @@ describe Tower do
 
       it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).not_to include(coordinate)
       end
     end
@@ -99,7 +99,7 @@ describe Tower do
 
       it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        pseudo_moves = tower.generate_pseudo_moves
+        pseudo_moves = rook.generate_pseudo_moves
         expect(pseudo_moves).not_to include(coordinate)
       end
     end

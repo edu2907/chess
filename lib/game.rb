@@ -22,7 +22,6 @@ class Game
   end
 
   def run
-    update_pieces_moveset
     loop do
       update_game_status
       move = execute_round
@@ -40,14 +39,16 @@ class Game
     system 'clear'
     puts " -> #{@current_player.name}'s Turn"
     @board.print_board
-    @players.each { |player| puts "#{player.name}: #{player.mark_piece}" }
+    @players.each do |player|
+      puts "#{player.name}: #{player.mark_piece} #{player.check_message} "
+    end
     @current_player.execute_action
   end
 
   def update_game_status
     promote_pawns
-    update_check_status
     update_pieces_moveset
+    update_check_status
   end
 
   def update_pieces_moveset

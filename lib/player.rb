@@ -30,7 +30,13 @@ class Player
 
   def find_king
     king_keys = { color:, notation_ltr: 'K' }
-    @board.select_by_keys(**king_keys)
+    @board.select_by_keys(**king_keys).first
+  end
+
+  def check_message
+    return unless @king.check_status
+
+    '| In check!'
   end
 
   def execute_action

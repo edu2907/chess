@@ -50,7 +50,7 @@ class Pawn < Piece
     case promotion_option
     when 'N' then Knight.new(@board, color:, pos:)
     when 'B' then Bisp.new(@board, color:, pos:)
-    when 'R' then Tower.new(@board, color:, pos:)
+    when 'R' then Rook.new(@board, color:, pos:)
     else Queen.new(@board, color:, pos:)
     end
   end

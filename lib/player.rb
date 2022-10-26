@@ -34,9 +34,7 @@ class Player
   end
 
   def check_message
-    return unless @king.check_status
-
-    '| In check!'
+    return '| In check!' if @king.check_status
   end
 
   def execute_action
@@ -45,8 +43,9 @@ class Player
       command = gets.chomp.split(' ')
       case command[0]
       when 'mv' then return mv(command[1], command[2]) || next
-      when 'save' then return save
-      else puts 'Invalid Option'
+      when 'save' then save
+      when 'exit' then exit
+      else puts 'Invalid Option!'
       end
     end
   end
@@ -99,5 +98,7 @@ class Player
     end
   end
 
-  def save; end
+  def save
+    @game.save_game
+  end
 end

@@ -24,21 +24,20 @@ class Game
   def run
     loop do
       update_game_status
+
+      return print_draw_message if stalemate?
+      return print_win_message if checkmate?
+
       move = execute_round
       record_movement(move)
-
-      return print_win_message if checkmate?
-      return print_draw_message if draw?
-
       next_player
-      save_game
     end
   end
 
   def execute_round
     system 'clear'
     puts " -> #{@current_player.name}'s Turn"
-    @board.print_board
+    puts @board
     @players.each do |player|
       puts "#{player.name}: #{player.mark_piece} #{player.check_message} "
     end
@@ -68,9 +67,13 @@ class Game
     @current_player = @players.rotate!.first
   end
 
-  def checkmate?; end
+  def checkmate?
+    
+  end
 
-  def draw?; end
+  def stalemate?
+  
+  end
 
   def to_h
     {

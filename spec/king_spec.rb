@@ -77,5 +77,5 @@ describe King do
         expect(pseudo_moves).not_to include(coordinate)
       end
     end
-  end 
+  end
 end

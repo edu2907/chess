@@ -33,13 +33,6 @@ class Board
     matrix[row][col] = piece
   end
 
-  def print_board
-    board_str = "    #{columns.join('  ')}"
-    board_str += format_board
-    board_str += "    #{columns.join('  ')}"
-    puts board_str
-  end
-
   def each(&block)
     matrix.flatten.compact.each(&block)
   end
@@ -54,6 +47,13 @@ class Board
     reject do |piece|
       match_keys.all? { |key, _value| piece.public_send(key) == match_keys[key] }
     end
+  end
+
+  def to_s
+    board_str = "    #{columns.join('  ')}"
+    board_str += format_tiles
+    board_str += "    #{columns.join('  ')}"
+    puts board_str
   end
 
   def to_arr
@@ -88,7 +88,7 @@ class Board
     end
   end
 
-  def format_board(string = "\n", colors = %i[black grey])
+  def format_tiles(string = "\n", colors = %i[black grey])
     matrix.each_with_index do |row_arr, row_n|
       string += " #{(row_n - 8).abs} "
       row_arr.each do |piece|

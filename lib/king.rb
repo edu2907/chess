@@ -30,9 +30,13 @@ class King < Piece
     moves
   end
 
-  def verify_check_status
+  def update_check_status
+    @check_status = check?
+  end
+
+  def check?
     enemies = @board.reject_by_keys(color:)
-    @check_status = enemies.any? { |enemy| enemy.move_set?(pos) }
+    enemies.any? { |enemy| enemy.move_set?(pos) }
   end
 
   private

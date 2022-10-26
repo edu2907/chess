@@ -55,7 +55,7 @@ class Game
   end
 
   def update_check_status
-    @board.select_by_keys(notation_ltr: 'K').each(&:verify_check_status)
+    @board.select_by_keys(notation_ltr: 'K').each(&:update_check_status)
   end
 
   def next_player

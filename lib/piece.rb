@@ -13,12 +13,12 @@ class Piece
     @pos = pos
   end
 
-  def move(move_coord, move_notation)
+  def move(move_coord, move_notation = nil)
     @board.remove_at(pos)
     @board.place_at(self, move_coord)
     @pos = move_coord
     @has_moved = true
-    move_notation(move_notation)
+    move_notation(move_notation) unless move_notation.nil?
   end
 
   # Pseudo Legal Moves are moves that a piece can perfom, regardless of the game status (like Check)
@@ -55,7 +55,18 @@ class Piece
   protected
 
   def generate_legal_moves
-    @current_pseudo_moves
+    @current_pseudo_moves.reject do |move|
+      board_clone = clone_board
+      board_clone.at(pos).move(move)
+      enemy_pieces = board_clone.reject_by_keys(color:)
+      king = board_clone.select_by_keys(color:, notation_ltr: 'K').first
+      enemy_pieces.each(&:update_pseudo_moves)
+      king.check?
+    end
+  end
+
+  def clone_board
+    Board.new(@board.to_arr)
   end
 
   def enemy?(enemy_pos)

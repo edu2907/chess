@@ -30,7 +30,7 @@ class King < Piece
 
   def check?
     enemies = @board.reject_by_keys(color:)
-    enemies.any? { |enemy| enemy.move_set?(king_pos) }
+    enemies.any? { |enemy| enemy.move_set?(pos) }
   end
 
   private

@@ -45,6 +45,7 @@ class Game
   end
 
   def update_game_status
+    promote_pawns
     update_check_status
     update_pieces_moveset
   end
@@ -56,6 +57,10 @@ class Game
 
   def update_check_status
     @board.select_by_keys(notation_ltr: 'K').each(&:update_check_status)
+  end
+
+  def promote_pawns
+    @board.select_by_keys(notation_ltr: '').each(&:promote)
   end
 
   def next_player

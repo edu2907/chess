@@ -19,7 +19,41 @@ class Pawn < Piece
     moves.compact
   end
 
+  def promote
+    return unless can_promote?
+
+    promoted_piece = create_promoted_piece(input_promotion)
+    @board.place_at(promoted_piece, pos)
+    # NOTE: Required to calculate legal moves
+    promoted_piece.update_pseudo_moves
+  end
+
   private
+
+  def can_promote?
+    promotion_row = color == 'white' ? 0 : 7
+    pos[1] == promotion_row
+  end
+
+  def input_promotion
+    promotion_options = ['Q', 'N', 'B', 'R', '']
+    loop do
+      puts "The pawn at #{pos} can be promoted! Select the piece you wish to promote: (default=Q)"
+      selected_option = gets.chomp
+      return selected_option if promotion_options.include?(selected_option)
+
+      puts 'Invalid option! Valid options: Q (Queen), N (Knight), B (Bishop), R (Rook)'
+    end
+  end
+
+  def create_promoted_piece(promotion_option)
+    case promotion_option
+    when 'N' then Knight.new(@board, color:, pos:)
+    when 'B' then Bisp.new(@board, color:, pos:)
+    when 'R' then Tower.new(@board, color:, pos:)
+    else Queen.new(@board, color:, pos:)
+    end
+  end
 
   def symbols
     if color == 'white'

@@ -3,7 +3,7 @@ require './lib/piece'
 require './lib/pawn'
 
 describe Pawn do
-  describe '#piece_move?' do
+  describe '#generate_pseudo_moves' do
     let(:board) { double('Board') }
     let(:enemy_piece) { double('Piece') }
     let(:ally_piece) { double('Piece') }
@@ -18,10 +18,10 @@ describe Pawn do
       let(:pawn_data) { { color: 'white', pos: [3, 6] } }
       subject(:pawn) { described_class.new(board, **pawn_data) }
 
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 5]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
@@ -29,10 +29,10 @@ describe Pawn do
       let(:pawn_data) { { color: 'white', pos: [3, 6], has_moved: false } }
       subject(:pawn) { described_class.new(board, **pawn_data) }
 
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 4]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
@@ -40,10 +40,10 @@ describe Pawn do
       let(:pawn_data) { { color: 'white', pos: [3, 5], has_moved: true } }
       subject(:pawn) { described_class.new(board, **pawn_data) }
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 3]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -55,10 +55,10 @@ describe Pawn do
         allow(board).to receive(:at).with([3, 5]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 5]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -70,10 +70,10 @@ describe Pawn do
         allow(board).to receive(:at).with([3, 4]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 4]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -85,10 +85,10 @@ describe Pawn do
         allow(board).to receive(:at).with([2, 5]).and_return(enemy_piece)
       end
 
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [2, 5]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
@@ -100,10 +100,10 @@ describe Pawn do
         allow(board).to receive(:at).with('25').and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [2, 5]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -111,10 +111,10 @@ describe Pawn do
       let(:pawn_data) { { color: 'white', pos: [3, 6] } }
       subject(:pawn) { described_class.new(board, **pawn_data) }
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [4, 5]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -122,10 +122,10 @@ describe Pawn do
       let(:pawn_data) { { color: 'white', pos: [3, 6] } }
       subject(:pawn) { described_class.new(board, **pawn_data) }
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 3]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -133,10 +133,10 @@ describe Pawn do
       let(:pawn_data) { { color: 'white', pos: [3, 6] } }
       subject(:pawn) { described_class.new(board, **pawn_data) }
 
-      xit 'returns true' do
+      xit 'include the move in the array of moves' do
         coordinate = [3, 3]
-        result = pawn.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = pawn.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
   end

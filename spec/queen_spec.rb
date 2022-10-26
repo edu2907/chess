@@ -3,7 +3,7 @@ require './lib/piece'
 require './lib/queen'
 
 describe Queen do
-  describe '#piece_move?' do
+  describe '#generate_pseudo_moves' do
     let(:board) { double('Board') }
     let(:queen_data) { { color: 'white', pos: [3, 4] } }
     subject(:queen) { described_class.new(board, **queen_data) }
@@ -17,42 +17,42 @@ describe Queen do
     end
 
     context 'when the move is d6' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 2]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is a4' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [0, 4]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is e5' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [4, 3]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is b6' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [1, 2]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when move is out of range of piece moves' do
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [1, 3]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -61,10 +61,10 @@ describe Queen do
         allow(board).to receive(:at).with([3, 2]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -73,10 +73,10 @@ describe Queen do
         allow(board).to receive(:at).with([3, 2]).and_return(enemy_piece)
       end
 
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 2]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
@@ -85,10 +85,10 @@ describe Queen do
         allow(board).to receive(:at).with([3, 3]).and_return(enemy_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -97,10 +97,10 @@ describe Queen do
         allow(board).to receive(:at).with([3, 3]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = queen.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = queen.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
   end

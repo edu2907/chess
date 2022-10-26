@@ -3,7 +3,7 @@ require './lib/piece'
 require './lib/tower'
 
 describe Tower do
-  describe '#piece_move?' do
+  describe '#generate_pseudo_moves' do
     let(:board) { double('Board') }
     let(:tower_data) { { color: 'white', pos: [3, 4] } }
     subject(:tower) { described_class.new(board, **tower_data) }
@@ -17,42 +17,42 @@ describe Tower do
     end
 
     context 'when the move is d6' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 2]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is a4' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [0, 4]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is d2' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 6]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is g4' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [7, 4]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when move is out of range of piece moves' do
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [1, 2]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -61,10 +61,10 @@ describe Tower do
         allow(board).to receive(:at).with([3, 2]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -73,10 +73,10 @@ describe Tower do
         allow(board).to receive(:at).with([3, 2]).and_return(enemy_piece)
       end
 
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [3, 2]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
@@ -85,10 +85,10 @@ describe Tower do
         allow(board).to receive(:at).with([3, 3]).and_return(enemy_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -97,10 +97,10 @@ describe Tower do
         allow(board).to receive(:at).with([3, 3]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = tower.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = tower.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
   end

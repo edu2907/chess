@@ -11,12 +11,6 @@ class King < Piece
     @check_status = piece_data[:check_status] || false
   end
 
-  def generate_legal_moves
-    @current_pseudo_moves.reject do |move|
-      @board.reject_by_keys(color:).any? { |piece| piece.move_set?(move) }
-    end
-  end
-
   def generate_pseudo_moves
     possible_rows = [1, 1, 1, 0, 0, -1, -1, -1]
     possible_cols = [-1, 0, 1, -1, 1, -1, 0, 1]
@@ -36,7 +30,7 @@ class King < Piece
 
   def check?
     enemies = @board.reject_by_keys(color:)
-    enemies.any? { |enemy| enemy.move_set?(pos) }
+    enemies.any? { |enemy| enemy.move_set?(king_pos) }
   end
 
   private

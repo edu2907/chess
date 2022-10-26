@@ -3,7 +3,7 @@ require './lib/piece'
 require './lib/knight'
 
 describe Knight do
-  describe '#piece_move?' do
+  describe '#generate_pseudo_moves' do
     let(:board) { double('Board') }
     let(:knight_data) { { color: 'white', pos: [3, 4] } }
     subject(:knight) { described_class.new(board, **knight_data) }
@@ -17,26 +17,26 @@ describe Knight do
     end
 
     context 'when the move is e6' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [4, 2]
-        result = knight.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = knight.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when the move is f5' do
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [5, 3]
-        result = knight.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = knight.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
 
     context 'when move is out of range of piece moves' do
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        result = knight.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = knight.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -45,10 +45,10 @@ describe Knight do
         allow(board).to receive(:at).with([4, 2]).and_return(ally_piece)
       end
 
-      it 'returns false' do
+      it 'exclude the move in the array of moves' do
         coordinate = [4, 2]
-        result = knight.piece_move?(coordinate)
-        expect(result).to be false
+        pseudo_moves = knight.generate_pseudo_moves
+        expect(pseudo_moves).not_to include(coordinate)
       end
     end
 
@@ -57,10 +57,10 @@ describe Knight do
         allow(board).to receive(:at).with([4, 2]).and_return(enemy_piece)
       end
 
-      it 'returns true' do
+      it 'include the move in the array of moves' do
         coordinate = [4, 2]
-        result = knight.piece_move?(coordinate)
-        expect(result).to be true
+        pseudo_moves = knight.generate_pseudo_moves
+        expect(pseudo_moves).to include(coordinate)
       end
     end
   end

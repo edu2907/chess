@@ -32,12 +32,16 @@ class Piece
     @current_legal_moves = generate_legal_moves
   end
 
-  def move_set?(move)
+  def pseudo_move?(move)
     @current_pseudo_moves.include?(move)
   end
 
-  def can_move?(move)
+  def legal_move?(move)
     @current_legal_moves.include?(move)
+  end
+
+  def can_move?
+    !@current_legal_moves.empty?
   end
 
   def to_s
@@ -59,8 +63,8 @@ class Piece
       board_clone = clone_board
       board_clone.at(pos).move(move)
       enemy_pieces = board_clone.reject_by_keys(color:)
-      king = board_clone.select_by_keys(color:, notation_ltr: 'K').first
       enemy_pieces.each(&:update_pseudo_moves)
+      king = board_clone.select_by_keys(color:, notation_ltr: 'K').first
       king.check?
     end
   end

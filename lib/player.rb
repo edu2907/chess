@@ -28,6 +28,14 @@ class Player
     end
   end
 
+  def can_play?
+    @board.select_by_keys(color:).any?(&:can_move?)
+  end
+
+  def check?
+    @king.check_status
+  end
+
   def find_king
     king_keys = { color:, notation_ltr: 'K' }
     @board.select_by_keys(**king_keys).first
@@ -77,7 +85,7 @@ class Player
     return if piece.nil?
 
     move_coord = convert_to_coordinate(move_notation)
-    if piece.can_move?(move_coord)
+    if piece.legal_move?(move_coord)
       piece.move(move_coord, move_notation)
     else
       puts "The selected piece cannot move to #{move_notation}!"

@@ -51,9 +51,8 @@ class Board
 
   def to_s
     board_str = "    #{columns.join('  ')}"
-    board_str += format_tiles
-    board_str += "    #{columns.join('  ')}"
-    puts board_str
+    board_str += tiles_to_str
+    board_str + "    #{columns.join('  ')}"
   end
 
   def to_arr
@@ -88,7 +87,7 @@ class Board
     end
   end
 
-  def format_tiles(string = "\n", colors = %i[black grey])
+  def tiles_to_str(string = "\n", colors = %i[black grey])
     matrix.each_with_index do |row_arr, row_n|
       string += " #{(row_n - 8).abs} "
       row_arr.each do |piece|

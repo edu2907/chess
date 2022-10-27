@@ -25,8 +25,7 @@ class Game
     loop do
       update_game_status
 
-      return print_draw_message if stalemate?
-      return print_win_message if checkmate?
+      return end_game_message if end_game?
 
       move = execute_round
       record_movement(move)
@@ -67,12 +66,24 @@ class Game
     @current_player = @players.rotate!.first
   end
 
-  def checkmate?
-    
+  def end_game?
+    !@current_player.can_play?
   end
 
-  def stalemate?
-  
+  def end_game_message
+    system 'clear'
+    puts @board
+    puts @current_player.check? ? print_win_message : print_draw_message
+  end
+
+  def win_message
+    winner_name = @players.last.name
+    "Checkmate! #{winner_name} wins!"
+  end
+
+  def draw_message
+    stalemated_name = @current_player.name
+    "Stalemate! #{stalemated_name} cannot move!"
   end
 
   def to_h

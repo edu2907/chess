@@ -2,11 +2,7 @@
 
 # The Rook Piece in chess
 class Rook < Piece
-  def initialize(board, **piece_data)
-    super(board, piece_data[:color], piece_data[:pos], piece_data[:has_moved])
-    @symbol = symbols
-    @notation_ltr = 'R'
-  end
+  protected
 
   def generate_pseudo_moves
     col, row = pos
@@ -28,13 +24,15 @@ class Rook < Piece
     moves
   end
 
-  private
-
   def symbols
     if color == 'white'
       '♖'
     else
       '♜'
     end
+  end
+
+  def class_notation_ltr
+    'R'
   end
 end

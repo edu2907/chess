@@ -2,11 +2,16 @@
 
 # The Pawn Piece in chess
 class Pawn < Piece
-  def initialize(board, **piece_data)
-    super(board, piece_data[:color], piece_data[:pos], piece_data[:has_moved])
-    @symbol = symbols
-    @notation_ltr = ''
+  def promote
+    return unless can_promote?
+
+    promoted_piece = create_promoted_piece(input_promotion)
+    @board.place_at(promoted_piece, pos)
+    # NOTE: Required to calculate legal moves
+    # promoted_piece.update_pseudo_moves
   end
+
+  protected
 
   def generate_pseudo_moves
     col, row = pos
@@ -19,13 +24,16 @@ class Pawn < Piece
     moves.compact
   end
 
-  def promote
-    return unless can_promote?
+  def symbols
+    if color == 'white'
+      '♙'
+    else
+      '♟'
+    end
+  end
 
-    promoted_piece = create_promoted_piece(input_promotion)
-    @board.place_at(promoted_piece, pos)
-    # NOTE: Required to calculate legal moves
-    promoted_piece.update_pseudo_moves
+  def class_notation_ltr
+    ''
   end
 
   private
@@ -52,14 +60,6 @@ class Pawn < Piece
     when 'B' then Bisp.new(@board, color:, pos:)
     when 'R' then Rook.new(@board, color:, pos:)
     else Queen.new(@board, color:, pos:)
-    end
-  end
-
-  def symbols
-    if color == 'white'
-      '♙'
-    else
-      '♟'
     end
   end
 

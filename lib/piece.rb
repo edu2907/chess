@@ -6,11 +6,20 @@ class Piece
 
   attr_reader :color, :notation_ltr, :pos, :has_moved
 
-  def initialize(board, color_arg, pos, has_moved)
+  def initialize(board, **piece_data)
     @board = board
-    @color = color_arg
-    @has_moved = has_moved || false
-    @pos = pos
+    @color = piece_data[:color]
+    @has_moved = piece_data[:has_moved] || false
+    @pos = piece_data[:pos]
+    @symbol = symbols
+    @notation_ltr = class_notation_ltr
+    post_initialize(piece_data)
+  end
+
+  def post_initialize(piece_data); end
+
+  def class_notation_ltr
+    raise NotImplementedError, "Missing #class_notation_ltr method for #{self.class.name}"
   end
 
   def move(move_coord, move_notation = nil)

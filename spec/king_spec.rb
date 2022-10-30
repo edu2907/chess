@@ -15,66 +15,58 @@ describe King do
     allow(ally_piece).to receive(:color).and_return('white')
   end
 
-  describe '#generate_pseudo_moves?' do
+  before :example do
+    king.update_pseudo_moves
+  end
+
+  describe '#pseudo_move?' do
     context 'when the move is d5' do
       it 'include the move in the array of moves' do
         coordinate = [3, 3]
-        pseudo_moves = king.generate_pseudo_moves
-        expect(pseudo_moves).to include(coordinate)
+        pseudo_moves = king.pseudo_move?(coordinate)
+        expect(pseudo_moves).to be true
       end
     end
 
     context 'when the move is e5' do
       it 'include the move in the array of moves' do
         coordinate = [4, 3]
-        pseudo_moves = king.generate_pseudo_moves
-        expect(pseudo_moves).to include(coordinate)
+        pseudo_moves = king.pseudo_move?(coordinate)
+        expect(pseudo_moves).to be true
       end
     end
 
     context 'when the move is out of range of piece moves' do
       it 'exclude the move in the array of moves' do
         coordinate = [3, 2]
-        pseudo_moves = king.generate_pseudo_moves
-        expect(pseudo_moves).not_to include(coordinate)
+        pseudo_moves = king.pseudo_move?(coordinate)
+        expect(pseudo_moves).to be false
       end
     end
 
     context 'when there is a ally piece in move target' do
       before do
         allow(board).to receive(:at).with([3, 3]).and_return(ally_piece)
+        king.update_pseudo_moves
       end
 
       it 'exclude the move in the array of moves' do
         coordinate = [3, 3]
-        pseudo_moves = king.generate_pseudo_moves
-        expect(pseudo_moves).not_to include(coordinate)
+        pseudo_moves = king.pseudo_move?(coordinate)
+        expect(pseudo_moves).to be false
       end
     end
 
     context 'when there is a enemy piece in move target' do
       before do
         allow(board).to receive(:at).with([3, 3]).and_return(enemy_piece)
+        king.update_pseudo_moves
       end
 
       it 'include the move in the array of moves' do
         coordinate = [3, 3]
-        pseudo_moves = king.generate_pseudo_moves
-        expect(pseudo_moves).to include(coordinate)
-      end
-    end
-
-    context 'when the move is a valid queenside castling' do
-      let(:castling_king_data) { { color: 'white', pos: 'e1' } }
-      subject(:castling_king) { described_class.new(board, **king_data) }
-      before do
-        allow(board).to receive(:at).with('47').and_return(enemy_piece)
-      end
-
-      xit 'include the move in the array of moves' do
-        move = 'O-O-O'
-        pseudo_moves = king.generate_pseudo_moves
-        expect(pseudo_moves).not_to include(coordinate)
+        pseudo_moves = king.pseudo_move?(coordinate)
+        expect(pseudo_moves).to be true
       end
     end
   end

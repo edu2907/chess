@@ -1,4 +1,5 @@
-require './lib/notation_utils'
+# frozen_string_literal: true
+
 require './lib/piece'
 require './lib/rook'
 

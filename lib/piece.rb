@@ -2,8 +2,6 @@
 
 # Group of attributes and behaviors shared between chess pieces. Should not be instatiated.
 class Piece
-  include NotationUtils
-
   attr_reader :color, :notation_ltr, :pos, :has_moved
 
   def initialize(board, **piece_data)
@@ -22,12 +20,15 @@ class Piece
     raise NotImplementedError, "Missing #class_notation_ltr method for #{self.class.name}"
   end
 
-  def move(move_coord, move_notation = nil)
+  def symbols
+    raise NotImplementedError, "Missing #symbols method for #{self.class.name}"
+  end
+
+  def move(move_coord)
     @board.remove_at(pos)
     @board.place_at(self, move_coord)
     @pos = move_coord
     @has_moved = true
-    move_notation(move_notation) unless move_notation.nil?
   end
 
   # Pseudo Legal Moves are moves that a piece can perfom, regardless of the game status (like Check)

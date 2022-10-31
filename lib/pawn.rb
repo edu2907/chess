@@ -46,7 +46,7 @@ class Pawn < Piece
   def input_promotion
     promotion_options = ['Q', 'N', 'B', 'R', '']
     loop do
-      puts "The pawn at #{pos} can be promoted! Select the piece you wish to promote: (default=Q)"
+      puts 'Your pawn can be promoted! Select the piece you wish to promote: (default=Q)'
       selected_option = gets.chomp
       return selected_option if promotion_options.include?(selected_option)
 

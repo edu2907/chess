@@ -67,16 +67,13 @@ class Player
 
   private
 
-  def mv(first_arg, target)
-    target ||= ''
-    return puts 'No argument error! Dont forget to insert your move' if first_arg.nil?
+  def mv(pos, target)
+    return puts 'Missing arguments error! Dont forget to insert the arguments of your move' if pos.nil? || target.nil?
 
-    if notation?(first_arg) && notation?(target)
-      move_piece(first_arg, target)
-    elsif castling?(first_arg)
-      castling(first_arg)
+    if notation?(pos) && notation?(target)
+      move_piece(pos, target)
     else
-      puts('Invalid move!')
+      puts 'Invalid move!'
     end
   end
 
@@ -86,7 +83,7 @@ class Player
 
     move_coord = convert_to_coordinate(move_notation)
     if piece.legal_move?(move_coord)
-      piece.move(move_coord, move_notation)
+      piece.move(move_coord)
     else
       puts "The selected piece cannot move to #{move_notation}!"
     end

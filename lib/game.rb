@@ -6,7 +6,6 @@ require_relative 'board'
 
 # Responsible for the logic of the Chess
 class Game
-  include NotationUtils
   include SaveUtils
   attr_reader :board
 
@@ -14,7 +13,6 @@ class Game
     @board = Board.new(board_matrix)
     @players = create_players(players_data)
     @current_player = @players[0]
-    create_save_files
   end
 
   def create_players(players_data)
@@ -27,8 +25,7 @@ class Game
 
       return end_game_message if end_game?
 
-      move = execute_round
-      record_movement(move)
+      execute_round
       next_player
     end
   end
@@ -83,7 +80,7 @@ class Game
 
   def draw_message
     stalemated_name = @current_player.name
-    "Stalemate! #{stalemated_name} cannot move!"
+    "Stalemate! #{stalemated_name} has no moves!"
   end
 
   def to_h

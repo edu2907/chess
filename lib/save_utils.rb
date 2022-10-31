@@ -7,12 +7,12 @@ module SaveUtils
   def create_save_files
     save_dir = "saves/save#{$save_number}/"
     FileUtils.mkdir_p(save_dir) unless Dir.exist?(save_dir)
-    FileUtils.touch("#{save_dir}move_record.txt")
     FileUtils.touch("#{save_dir}game_data.yaml")
     save_game
   end
 
   def save_game
+    create_save_files unless File.exist?("saves/save#{$save_number}/game_data.yaml")
     game_data_hash = to_h
     game_data_yaml = YAML.dump(game_data_hash)
     save_file = File.open("saves/save#{$save_number}/game_data.yaml", 'w')

@@ -8,13 +8,20 @@ Console chess game written in Ruby. Made for the [Ruby Final Project](https://ww
 
 This certainly is the hardest project I ever made at the day I writing this. I used all my skills I learned so far in this project, and unfortunely I coudn't figured out how to implement the special moves, due to how the code get messy in some parts (especially the way that coordinate works). I had to refactor my code many times, so my mistake here probably has bad code planning. But happily I could make it functional, with almost all the chess mechanics. I writed some tests for the piece movements, but I feel like I need to study more about Tests. 
 
+
 ## Tutorial
 
 Note: This won't teach you how to play chess, but how to run and interact with the game. If you dont know how to play chess, take a look at [this video](https://www.youtube.com/watch?v=OCSbzArwB10).
 
 ### Run the game
 
-After downloading the repo:
+#### Requirements
+
+- Ruby version: 3.1.2
+- gem 'colorize'
+- gem 'rspec'
+
+#### After downloading the repo:
 
 1. Open your terminal in the project folder
 2. Run 'bundle' to install the required gems

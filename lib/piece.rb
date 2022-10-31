@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Group of attributes and behaviors shared between chess pieces. Should not be instatiated.
+# Abstract class that represents a generic chess piece.
 class Piece
   attr_reader :color, :notation_ltr, :pos, :has_moved
 

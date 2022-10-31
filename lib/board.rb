@@ -8,7 +8,7 @@ require_relative 'knight'
 require_relative 'queen'
 require_relative 'king'
 
-# Is a chess board
+# Represent a chess board. Contains a collection of chess pieces
 class Board
   include Enumerable
   include NotationUtils

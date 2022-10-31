@@ -27,5 +27,6 @@ if SaveUtils.save_file?
     SaveUtils.new_game
   end
 else
+  puts 'Check the README to know how to play the game.'
   SaveUtils.new_game
 end
